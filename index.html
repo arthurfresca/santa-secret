@@ -39,6 +39,14 @@
       width: 400px;
     }
 
+    .person {
+      color: #007BFF; /* Azul */
+    }
+
+    .receiver {
+      color: #FF6347; /* Vermelho */
+    }
+
     /* Responsividade */
     @media (max-width: 600px) {
       h1 {
@@ -84,7 +92,7 @@
           const receiver = decrypt(encryptedReceiver);
 
           // Mostrar o resultado
-          document.getElementById("result").innerText = `Ola ${name}, você tirou ${receiver}!`;
+          document.getElementById("result").innerHTML = `Olá <span class="person">${name}</span>, você tirou <span class="receiver">${receiver}</span>!`;
         } catch (error) {
           document.getElementById("result").innerText = "Erro ao revelar seu amigo secreto.";
         }
