@@ -40,11 +40,12 @@
     }
 
     .person {
-      color: #007BFF; /* Azul */
+      color: #007BFF;
     }
 
     .receiver {
-      color: #FF6347; /* Vermelho */
+      color: #FF6347;
+      font-weight: bold;
     }
 
     /* Responsividade */
@@ -79,20 +80,18 @@
         return decodeURIComponent(escape(atob(encodedText)));
     }
 
-    // Pegar o hash da URL
-    const hash = window.location.hash.substring(1); // Remove o '#'
+    const hash = window.location.hash.substring(1); 
     
     if (hash) {
-      // Separar o hash no formato "name/encryptedReceiver"
+     
       const [name, encryptedReceiver] = hash.split('/');
 
-      // Validar se ambos estão presentes
+     
       if (name && encryptedReceiver) {
         try {
           const receiver = decrypt(encryptedReceiver);
           const decodedName = decodeURIComponent(name);
 
-          // Mostrar o resultado
           document.getElementById("result").innerHTML = `Olá <span class="person">${decodedName}</span>, você tirou <span class="receiver">${receiver}</span>!`;
         } catch (error) {
           document.getElementById("result").innerText = "Erro ao revelar seu amigo secreto.";

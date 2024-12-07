@@ -5,12 +5,10 @@ import json
 import urllib.parse
 
 def encrypt(text):
-    # Encripta o texto usando base64
     encoded = base64.b64encode(text.encode('utf-8')).decode('utf-8')
     return encoded
 
 def decrypt(encoded_text):
-    # Decripta o texto codificado em base64
     decoded = base64.b64decode(encoded_text).decode('utf-8')
     return decoded
 
@@ -26,14 +24,11 @@ def generate_secret_santa():
     if len(names) < 2:
         return jsonify({'error': 'At least two participants are required'}), 400
 
-    # Shuffle para o sorteio
     shuffled = names[:]
     random.shuffle(shuffled)
 
-    # Tornar o sorteio cíclico
     pairs = [(shuffled[i], shuffled[(i + 1) % len(shuffled)]) for i in range(len(shuffled))]
 
-    # Gerar URLs com os nomes encriptados
     base_url = "https://arthurfresca.github.io/santa-secret/#"
     urls = []
     for giver, receiver in pairs:
