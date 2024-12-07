@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import base64
 import random
 import json
+import urllib.parse
 
 def encrypt(text):
     # Encripta o texto usando base64
@@ -37,7 +38,8 @@ def generate_secret_santa():
     urls = []
     for giver, receiver in pairs:
         encrypted_receiver = encrypt(receiver)
-        urls.append(f"{base_url}{giver}/{encrypted_receiver}")
+        giver_encoded = urllib.parse.quote(giver)
+        urls.append(f"{base_url}{giver_encoded}/{encrypted_receiver}")
 
     random.shuffle(urls)
 
