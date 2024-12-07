@@ -26,7 +26,7 @@ def generate_secret_santa():
     pairs = [(shuffled[i], shuffled[(i + 1) % len(shuffled)]) for i in range(len(shuffled))]
 
     # Gerar URLs com os nomes encriptados
-    base_url = "https://arthurfresca.github.io/santa-secret/"
+    base_url = "https://arthurfresca.github.io/santa-secret/#"
     urls = []
     for giver, receiver in pairs:
         encrypted_receiver = cipher.encrypt(receiver.encode()).decode()

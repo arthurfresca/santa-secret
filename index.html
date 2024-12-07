@@ -14,20 +14,30 @@
     // Chave para decriptar (copiar do Python)
     const decryptionKey = "CHAVE_GERADA_NO_PYTHON";
 
-    // Pegar os parâmetros da URL
-    const urlParams = new URLSearchParams(window.location.pathname.split('/').slice(-2));
-    const name = urlParams[0];
-    const encryptedReceiver = urlParams[1];
+    // Pegar o hash da URL
+    const hash = window.location.hash.substring(1); // Remove o '#'
+    
+    if (hash) {
+      // Separar o hash no formato "name/encryptedReceiver"
+      const [name, encryptedReceiver] = hash.split('/');
 
-    // Decriptar o nome do amigo secreto
-    try {
-      const bytes = CryptoJS.AES.decrypt(encryptedReceiver, decryptionKey);
-      const receiver = bytes.toString(CryptoJS.enc.Utf8);
+      // Validar se ambos estão presentes
+      if (name && encryptedReceiver) {
+        try {
+          // Decriptar o nome do amigo secreto
+          const bytes = CryptoJS.AES.decrypt(encryptedReceiver, decryptionKey);
+          const receiver = bytes.toString(CryptoJS.enc.Utf8);
 
-      // Mostrar o resultado
-      document.getElementById("result").innerText = `${name}, você tirou ${receiver}!`;
-    } catch (error) {
-      document.getElementById("result").innerText = "Algo deu errado ao revelar seu amigo secreto.";
+          // Mostrar o resultado
+          document.getElementById("result").innerText = `${name}, você tirou ${receiver}!`;
+        } catch (error) {
+          document.getElementById("result").innerText = "Erro ao revelar seu amigo secreto.";
+        }
+      } else {
+        document.getElementById("result").innerText = "Formato inválido na URL.";
+      }
+    } else {
+      document.getElementById("result").innerText = "Nenhuma informação encontrada na URL.";
     }
   </script>
 </body>
