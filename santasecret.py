@@ -1,24 +1,17 @@
 from flask import Flask, request, jsonify
-from cryptography.fernet import Fernet
 import base64
-from Crypto.Cipher import AES
 import random
-import base64
 import json
 
-def encrypt(text, key):
-    cipher = AES.new(key.encode('utf-8'), AES.MODE_ECB)
-    text_padded = text + (16 - len(text) % 16) * chr(16 - len(text) % 16)
-    encrypted = cipher.encrypt(text_padded.encode('utf-8'))
-    return base64.b64encode(encrypted).decode('utf-8')
+def encrypt(text):
+    # Encripta o texto usando base64
+    encoded = base64.b64encode(text.encode('utf-8')).decode('utf-8')
+    return encoded
 
-def decrypt(encrypted, key):
-    cipher = AES.new(key.encode('utf-8'), AES.MODE_ECB)
-    encrypted_bytes = base64.b64decode(encrypted)
-    decrypted_padded = cipher.decrypt(encrypted_bytes).decode('utf-8')
-    return decrypted_padded[:-ord(decrypted_padded[-1])]
-
-key = "mysecretkey12345"  # Use uma chave de 16 caracteres
+def decrypt(encoded_text):
+    # Decripta o texto codificado em base64
+    decoded = base64.b64decode(encoded_text).decode('utf-8')
+    return decoded
 
 app = Flask(__name__)
 
@@ -43,7 +36,7 @@ def generate_secret_santa():
     base_url = "https://arthurfresca.github.io/santa-secret/#"
     urls = []
     for giver, receiver in pairs:
-        encrypted_receiver = encrypt(receiver, key)
+        encrypted_receiver = encrypt(receiver)
         urls.append(f"{base_url}{giver}/{encrypted_receiver}")
 
     return jsonify({'urls': urls})

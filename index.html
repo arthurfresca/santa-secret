@@ -11,8 +11,13 @@
   <p id="result"></p>
 
   <script>
-    // Chave para decriptar (copiar do Python)
-    const decryptionKey = "mysecretkey12345";
+    function encrypt(text) {
+        return btoa(unescape(encodeURIComponent(text)));
+    }
+
+    function decrypt(encodedText) {
+        return decodeURIComponent(escape(atob(encodedText)));
+    }
 
     // Pegar o hash da URL
     const hash = window.location.hash.substring(1); // Remove o '#'
@@ -24,9 +29,7 @@
       // Validar se ambos estão presentes
       if (name && encryptedReceiver) {
         try {
-          // Decriptar o nome do amigo secreto
-          const bytes = CryptoJS.AES.decrypt(encryptedReceiver, decryptionKey);
-          const receiver = bytes.toString(CryptoJS.enc.Utf8);
+          const receiver = decrypt(encryptedReceiver);
 
           // Mostrar o resultado
           document.getElementById("result").innerText = `${name}, você tirou ${receiver}!`;
