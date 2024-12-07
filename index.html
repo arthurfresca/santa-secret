@@ -93,7 +93,7 @@
           const receiver = decrypt(encryptedReceiver);
           const decodedName = decodeURIComponent(name);
 
-          document.getElementById("result").innerHTML = `Olá <span class="person">${decodedName}</span>, você tirou <span class="receiver">${receiver}</span>!`;
+          document.getElementById("result").innerHTML = `Olá <span class="person">${decodedName}</span>, o seu amigo secreto é <span class="receiver">${receiver}</span>!`;
         } catch (error) {
           document.getElementById("result").innerText = "Erro ao revelar seu amigo secreto.";
         }
