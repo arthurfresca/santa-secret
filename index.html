@@ -5,10 +5,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Secret Santa Reveal</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    p {
+      font-size: 18px;
+      color: #555;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .container {
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 90%;
+      width: 400px;
+    }
+
+    /* Responsividade */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .container {
+        width: 90%;
+        padding: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Secret Santa Reveal</h1>
-  <p id="result"></p>
+    <div class="container">
+        <h1>Revelação do Amigo secreto</h1>
+        <p id="result"></p>
+      </div>
 
   <script>
     function encrypt(text) {
@@ -32,7 +84,7 @@
           const receiver = decrypt(encryptedReceiver);
 
           // Mostrar o resultado
-          document.getElementById("result").innerText = `${name}, você tirou ${receiver}!`;
+          document.getElementById("result").innerText = `Ola ${name}, você tirou ${receiver}!`;
         } catch (error) {
           document.getElementById("result").innerText = "Erro ao revelar seu amigo secreto.";
         }

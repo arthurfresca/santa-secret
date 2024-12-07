@@ -39,6 +39,8 @@ def generate_secret_santa():
         encrypted_receiver = encrypt(receiver)
         urls.append(f"{base_url}{giver}/{encrypted_receiver}")
 
+    random.shuffle(urls)
+
     return jsonify({'urls': urls})
 
 if __name__ == '__main__':
