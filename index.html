@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secret Santa Reveal</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+  <h1>Secret Santa Reveal</h1>
+  <p id="result"></p>
+
+  <script>
+    // Chave para decriptar (copiar do Python)
+    const decryptionKey = "CHAVE_GERADA_NO_PYTHON";
+
+    // Pegar os parâmetros da URL
+    const urlParams = new URLSearchParams(window.location.pathname.split('/').slice(-2));
+    const name = urlParams[0];
+    const encryptedReceiver = urlParams[1];
+
+    // Decriptar o nome do amigo secreto
+    try {
+      const bytes = CryptoJS.AES.decrypt(encryptedReceiver, decryptionKey);
+      const receiver = bytes.toString(CryptoJS.enc.Utf8);
+
+      // Mostrar o resultado
+      document.getElementById("result").innerText = `${name}, você tirou ${receiver}!`;
+    } catch (error) {
+      document.getElementById("result").innerText = "Algo deu errado ao revelar seu amigo secreto.";
+    }
+  </script>
+</body>
+</html>
