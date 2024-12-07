@@ -4,9 +4,7 @@ import random
 
 app = Flask(__name__)
 
-# Gerar uma chave para encriptação
-key = Fernet.generate_key()
-cipher = Fernet(key)
+cipher = Fernet("wgk06QLqaTDl89NkOCqE44iibdJF19R-TkTsNFFZxSY=")
 
 @app.route('/generate-secret-santa', methods=['POST'])
 def generate_secret_santa():
